@@ -1,0 +1,12 @@
+#!/bin/sh
+
+echo "Symlinking /lib/ld-linux-x86-64.so.2..."
+ln -s $(hab pkg path core/glibc)/lib/ld-2.22.so /lib/ld-linux-x86-64.so.2
+ln -s $(hab pkg path core/openssl)/lib/libssl.so.1.0.0 /lib/libssl.so.10
+ln -s $(hab pkg path core/openssl)/lib/libcrypto.so.1.0.0 /lib/libcrypto.so.10
+
+if [[ ! -d /data/db ]]; then
+  echo "Valid MongoDB Database Volume NOT FOUND!: Creating empty /data/db"
+  mkdir -p /data/db
+fi
+

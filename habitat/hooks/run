@@ -1,0 +1,14 @@
+#!/bin/sh
+
+## Ensure /data/db is mounted.
+
+if [[ -d /data/db ]]; then
+  export LD_LIBRARY_PATH=$(hab pkg path core/gcc-libs)/lib:$LD_LIBRARY_PATH
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib
+
+  echo "\$LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+  exec $(hab pkg path billmeyer/mongodb)/bin/mongod --noauth --rest --httpinterface
+else
+  echo "ERROR: MongoDB Data Directory (/var/db) not present!  Specify a valid volume."
+fi
+
